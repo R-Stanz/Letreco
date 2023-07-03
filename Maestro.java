@@ -22,7 +22,7 @@ public class Maestro{
 		}
 	}
 
-	private void stop(){
+	private Boolean stop(){
 		messages.printFinalMsg();
 	}
 }
