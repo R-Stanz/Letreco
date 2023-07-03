@@ -4,12 +4,15 @@ import java.util.Matcher;
 
 public class Game{
 
+	private Word 		answer;
 	private Word 		hint;
 	private Interface 	messages;
 	private GameScore	gameScore;
+	private Dictionary dict = new Dictionary();
 	Scanner input		= new Scanner(System.in);
 
-	Game(Word answer){
+	Game(){
+		answer = new Word(dict);
 		for(Integer i = 0; i < 6; i++){
 			this.getNewHint();
 			Boolean isCorrect = answer.evaluate(hint);
@@ -27,8 +30,8 @@ public class Game{
 				Boolean gotAHint	= matcher.find();
 
 				if(!gotAHint){
-					hint = new Word(futureHint);
-					gotAHint = hint.inDict();
+					hint = new Word(dict, futureHint);
+					gotAHint = dict.contains(hint);
 				}
 			}
 		}
