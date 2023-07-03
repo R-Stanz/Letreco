@@ -1,27 +1,21 @@
 public class Maestro{
 
 	private Word 		answer;
-	private Word 		hint;
 	private Interface 	messages;
+	private Game		game;
 
 	Maestro(){
 		this.getNewAnswer(); 
 	}
 
-	public void start(){
+	public void begin(){
 		while(true){
+			game.play(answer);
+			if(this.stop()) return ;	
 		}
 	}
 
-	private void play(){
-		for(Integer i = 0; i < 6; i++){
-			this.getNewHint();
-			Boolean stopMarker = answer.evaluate(hint);
-			if(stopMarker) break;
-		}
+	private void stop(){
 		messages.printFinalMsg();
-	}
-
-	private void getNewHint(){
 	}
 }
