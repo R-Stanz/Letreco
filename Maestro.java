@@ -2,6 +2,7 @@ public class Maestro{
 
 	private Word 		answer;
 	private Interface 	messages;
+	private Score		score;
 	private Game		game;
 
 	Maestro(){
@@ -10,8 +11,14 @@ public class Maestro{
 
 	public void begin(){
 		while(true){
-			game.play(answer);
-			if(this.stop()) return ;	
+			game = new Game(answer);
+
+			if(game.getWin()) 	score.addWin();
+			else			score.addLoss();
+
+			if(this.stop()) {
+				return ;	
+			}
 		}
 	}
 
