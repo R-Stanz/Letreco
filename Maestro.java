@@ -9,7 +9,9 @@ public class Maestro{
 	}
 
 	public void begin(){
+		messages.initialMsg();
 		while(true){
+			messages.recapMsg(score);
 			game = new Game();
 
 			if(game.getWin()) 	score.addWin();
@@ -22,6 +24,6 @@ public class Maestro{
 	}
 
 	private Boolean stop(){
-		messages.printFinalMsg();
+		return messages.endingMsg(score);
 	}
 }

@@ -9,20 +9,26 @@ public class Game{
 	private Interface 	messages;
 	private GameScore	gameScore;
 	private Dictionary dict = new Dictionary();
+	private Boolean win;
 	Scanner input		= new Scanner(System.in);
 
 	Game(){
 		answer = new Word(dict);
 		for(Integer i = 0; i < 6; i++){
-			this.getNewHint();
-			Boolean isCorrect = answer.evaluate(hint);
-			if(isCorrect) break;
+			this.getNewHint(i+1);
+			win = answer.evaluate(hint);
+			if(win) break;
 		}
 	}
 
-	private void getNewHint(){
+	public Boolean getWin(){
+		return this.win;
+	}
+
+	private void getNewHint(Integer tryNumber){
 		try{
 			Boolean gotAHint = false;
+			messages.hintMsg(tryNumber);
 			while(!gotAHint){
 				String futureHint	= input.nextLine().toLowerCase();
 				Pattern pattern 	= Pattern.compile("^[a-z]{5}$");
