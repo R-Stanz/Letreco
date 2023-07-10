@@ -1,17 +1,12 @@
 public class Maestro{
 
-	private Interface 	messages;
-	private Score		score = new Score();
-	private Game		game;
-
 	Maestro(){
-		this.getNewAnswer(); 
-	}
-
-	public void begin(){
+		Game 		game;
+		Score		score 	 = new Score();
+		Interface	messages = new Interface(score);
 		messages.initial();
 		while(true){
-			messages.recap(score);
+			messages.recap();
 			game = new Game();
 
 			if(game.getWin()) 	score.addWin();

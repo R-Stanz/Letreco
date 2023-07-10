@@ -1,6 +1,5 @@
 public class Word{
 
-	private Interface	messages; 
 	private String 	   	word;
 	private Dictionary 	dict;
 
@@ -15,6 +14,7 @@ public class Word{
 	}
 
 	public Boolean evaluate(Word anotherWord){
+		Interface messages 			= new Inteface();
 		ArrayList<Character> wordArr		= this.getCharArrayList();
 		ArrayList<Character> otherWordArr	= anotherWord.getCharArrayList();
 
