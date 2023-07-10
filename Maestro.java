@@ -1,7 +1,7 @@
 public class Maestro{
 
 	private Interface 	messages;
-	private Score		score;
+	private Score		score = new Score();
 	private Game		game;
 
 	Maestro(){
@@ -9,21 +9,20 @@ public class Maestro{
 	}
 
 	public void begin(){
-		messages.initialMsg();
+		messages.initial();
 		while(true){
-			messages.recapMsg(score);
+			messages.recap(score);
 			game = new Game();
 
 			if(game.getWin()) 	score.addWin();
 			else			score.addLoss();
 
-			if(this.stop()) {
-				return ;	
-			}
+			if(this.stop())
+				break;	
 		}
 	}
 
 	private Boolean stop(){
-		return messages.endingMsg(score);
+		return messages.ending(score);
 	}
 }

@@ -7,7 +7,6 @@ public class Game{
 	private Word 		answer;
 	private Word 		hint;
 	private Interface 	messages;
-	private GameScore	gameScore;
 	private Dictionary dict = new Dictionary();
 	private Boolean win;
 	Scanner input		= new Scanner(System.in);
@@ -28,7 +27,7 @@ public class Game{
 	private void getNewHint(Integer tryNumber){
 		try{
 			Boolean gotAHint = false;
-			messages.hintMsg(tryNumber);
+			messages.getHint(tryNumber);
 			while(!gotAHint){
 				String futureHint	= input.nextLine().toLowerCase();
 				Pattern pattern 	= Pattern.compile("^[a-z]{5}$");
