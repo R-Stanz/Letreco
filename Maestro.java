@@ -4,13 +4,16 @@ public class Maestro{
 		Game 		game;
 		Score		score 	 = new Score();
 		Interface	messages = new Interface(score);
+
 		messages.initial();
 		while(true){
 			messages.recap();
-			game = new Game();
+			game 		= new Game();
 
-			if(game.getWin()) 	score.addWin();
-			else			score.addLoss();
+			if(game.getWin())
+				score.addWin();
+			else
+				score.addLoss();
 
 			if(this.stop())
 				break;	
@@ -18,6 +21,11 @@ public class Maestro{
 	}
 
 	private Boolean stop(){
-		return messages.ending(score);
+		return messages.ending();
+	}
+
+	public static main(String[] args){
+
+		Maestro play = new Maestro();
 	}
 }

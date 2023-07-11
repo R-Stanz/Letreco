@@ -18,6 +18,7 @@ public class Word{
 		ArrayList<Character> wordArr		= this.getCharArrayList();
 		ArrayList<Character> otherWordArr	= anotherWord.getCharArrayList();
 
+		messages.evaluateRecap(this.word);
 		Boolean win = true;
 
 		for(Integer index = 0; index < word.length; index++){
