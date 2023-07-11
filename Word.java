@@ -1,38 +1,47 @@
+import java.util.ArrayList;
+
 public class Word{
 
 	private String 	   	word;
 	private Dictionary 	dict;
+
+	Word(){}
 
 	Word(Dictionary dict){
 		this.dict 	= dict;
 		this.word 	= dict.getRandomWord();
 	}
 
-	Word(Dictionary dict, Sting hint){
+	Word(Dictionary dict, String hint){
 		this.dict	= dict;
 		this.word 	= hint;
 	}
 
 	public Boolean evaluate(Word anotherWord){
-		Interface messages 			= new Inteface();
+		Interface messages 			= new Interface();
 		ArrayList<Character> wordArr		= this.getCharArrayList();
 		ArrayList<Character> otherWordArr	= anotherWord.getCharArrayList();
 
-		messages.evaluateRecap(this.word);
+		messages.evaluateRecap(anotherWord.word);
 		Boolean win = true;
 
-		for(Integer index = 0; index < word.length; index++){
-			wordChar.get(index)		= wordArr.get(index);
-			otherWordChar.get(index)	= otherWordChar.get(index);
+		Integer iterations 	= wordArr.size();
+		Integer removed		= 0;
+		for(Integer index = 0; index < iterations; index++){
+			Character wordChar	= wordArr.get(index-removed);
+			Character otherWordChar	= otherWordArr.get(index);
 
 			if(wordChar.equals(otherWordChar)){
 				messages.rightPosition();
 				wordArr.remove(wordChar);
+				removed += 1;
 			}
 			else{
 				win = false;
-				if(wordArr.remove(wordChar))
+				if(wordArr.remove(wordChar)){
+					removed += 1;
 					messages.rightChar();
+				}
 				else
 					messages.wrongChar();
 			}

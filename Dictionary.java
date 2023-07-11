@@ -11,8 +11,8 @@ public class Dictionary{
 
 	Dictionary(){
 		try{
-			File dictFile = new File(fileName);
-			Scanner fileReader = new Scanner(dictFile);
+			File dictFile 		= new File(fileName);
+			Scanner fileReader 	= new Scanner(dictFile);
 			while(fileReader.hasNextLine()){
 				String lineContent = fileReader.nextLine();
 				dict.add(lineContent);
@@ -20,7 +20,8 @@ public class Dictionary{
 			fileReader.close();
 		}
 		catch(FileNotFoundException e) {
-			System.out.println("Error, be sure the file 'br-utf8.txt' is on the same directory as the classes");
+			System.out.println("Error, be sure the file 'br-utf8.txt' " +
+					   "is on the same directory as the classes");
 			e.printStackTrace();
 		}
 	}
@@ -30,7 +31,7 @@ public class Dictionary{
 		long 	seed	= System.currentTimeMillis();
 		random.setSeed(seed);
 
-		String randomIndex = random(dict.size());
+		Integer randomIndex = random.nextInt(dict.size());
 		return dict.get(randomIndex);
 	}
 

@@ -1,15 +1,17 @@
 import java.util.Scanner;
-import java.util.Pattern;
-import java.util.Matcher;
+import java.util.regex.Pattern;
+import java.util.regex.Matcher;
 
 public class Game{
 
 	private Boolean win;
+	private Word answer;
+	private Dictionary dict;
 
-	Game(){
+	Game(Dictionary dict){
 		Interface messages 	= new Interface();
-		Dictionary dict 	= new Dictionary();
-		Word answer 		= new Word(dict);
+		answer 			= new Word(dict);
+		this.dict 		= dict;
 
 		for(Integer i = 0; i < 6; i++){
 			Word hint 	= this.getNewHint(i+1);
@@ -18,8 +20,8 @@ public class Game{
 				messages.win(answer);
 				break;
 			}
-		messages.loss(answer);
 		}
+		messages.loss(answer);
 	}
 
 	public String answerStr(){
@@ -30,31 +32,32 @@ public class Game{
 		return this.win;
 	}
 
-	private String getNewHint(Integer tryNumber){
+	private Word getNewHint(Integer tryNumber){
+
 		try{
-			Word hint;
-			Boolean gotAHint 	= false;
+			Word hint 		= new Word(dict, "");
 			Scanner input		= new Scanner(System.in);
 			Interface messages 	= new Interface();
 			messages.getHint(tryNumber);
 
-			while(!gotAHint){
-				String futureHint	= input.next().toLowerCase();
+			while(true){
+				String 	futureHint	= input.next().toLowerCase();
 				Pattern pattern 	= Pattern.compile("^[a-z]{5}$");
 				Matcher matcher 	= pattern.matcher(futureHint);
-				Boolean gotAHint	= matcher.find();
+				hint 			= new Word(dict, futureHint);
 
-				if(!gotAHint){
-					hint = new Word(dict, futureHint);
-					gotAHint = dict.contains(hint);
+				if((matcher.find()) && (dict.contains(hint))){
+					System.out.println("(Tentativa valida)");
+					break;
 				}
 			}
-			System.out.println("(Tentativa vália)");
+			input.close();
 			return hint;
 		}
 		catch(Exception e){
 			System.out.println("Invalid hint!");
+			e.printStackTrace();
+			return null;
 		}	
-		input.close();
 	}
 }
