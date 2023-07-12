@@ -5,8 +5,6 @@ public class Word{
 	private String 	   	word;
 	private Dictionary 	dict;
 
-	Word(){}
-
 	Word(Dictionary dict){
 		this.dict 	= dict;
 		this.word 	= dict.getRandomWord();
@@ -23,30 +21,53 @@ public class Word{
 		ArrayList<Character> otherWordArr	= anotherWord.getCharArrayList();
 
 		messages.evaluateRecap(anotherWord.word);
-		Boolean win = true;
+		ArrayList<Character> result 		= (ArrayList)wordArr.clone();
 
-		Integer iterations 	= wordArr.size();
-		Integer removed		= 0;
-		for(Integer index = 0; index < iterations; index++){
-			Character wordChar	= wordArr.get(index-removed);
+		String symbol = "+";
+		Integer count = 0;
+		for(Integer index = 0; index < wordArr.size(); index++){
+			Character wordChar	= wordArr.get(index);
 			Character otherWordChar	= otherWordArr.get(index);
 
 			if(wordChar.equals(otherWordChar)){
-				messages.rightPosition();
-				wordArr.remove(wordChar);
-				removed += 1;
-			}
-			else{
-				win = false;
-				if(wordArr.remove(wordChar)){
-					removed += 1;
-					messages.rightChar();
-				}
-				else
-					messages.wrongChar();
+				wordArr.set(index, symbol.charAt(0));
+				otherWordArr.set(index, symbol.charAt(0));
+				count += 1;
 			}
 		}
-		return win;
+
+		ArrayList<Character> symbolsArr		= new ArrayList<Character>();
+
+		symbolsArr.add(symbol.charAt(0));
+		wordArr.removeAll(symbolsArr);
+
+		if(wordArr.isEmpty()){
+			messages.resultEvaluation(otherWordArr);
+			return true;
+		}
+
+		symbol = "-";
+		symbolsArr.add(symbol.charAt(0));
+		symbol = "*";
+		symbolsArr.add(symbol.charAt(0));
+
+		for(Integer index = 0; index < otherWordArr.size(); index++){
+			Character otherWordChar	= otherWordArr.get(index);
+
+			if(!symbolsArr.contains(otherWordChar)){
+				if(wordArr.isEmpty()) break;
+				else if(wordArr.remove(otherWordChar)){
+					symbol = "-";
+					otherWordArr.set(index, symbol.charAt(0));
+				}
+				else{
+					symbol = "*";
+					otherWordArr.set(index, symbol.charAt(0));
+				}
+			}
+		}
+		messages.resultEvaluation(otherWordArr);
+		return false;
 	}
 
 	private ArrayList<Character> getCharArrayList(){

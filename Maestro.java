@@ -1,3 +1,4 @@
+import java.util.Scanner;
 public class Maestro{
 
 	Maestro(){
@@ -7,27 +8,24 @@ public class Maestro{
 		Dictionary 	dict 	 = new Dictionary();
 
 		messages.initial();
+		Scanner input = new Scanner(System.in);
 		while(true){
 			messages.recap();
+			
 			game 		= new Game(dict);
 
 			if(game.getWin())
 				score.addWin();
 			else
 				score.addLoss();
-
-			if(this.stop())
+			
+			if(messages.ending())
 				break;	
 		}
 	}
 
-	private Boolean stop(){
-		Interface messages = new Interface();
-		return messages.ending();
-	}
 
 	public static void main(String[] args){
-
 		Maestro play = new Maestro();
 	}
 }
