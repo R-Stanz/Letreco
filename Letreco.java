@@ -5,13 +5,8 @@ public class Letreco{
 		Game		game 	= new Game();
 
 		message.initial();
-		while(true){
-			message.recap();
-			
-			Boolean win = game.run();
+		message.recap();
 
-			if(message.ending())
-				break;	
-		}
+		game.run();
 	}
 }

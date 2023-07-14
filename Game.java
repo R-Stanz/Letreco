@@ -6,7 +6,7 @@ public class Game{
 
 	Game(){}
 
-	public Boolean run(){
+	public void run(){
 		Dictionary dict 	= new Dictionary();
 		String answer 		= dict.getRandomWord();
 
@@ -14,11 +14,12 @@ public class Game{
 			String hint 	= message.getNewHint(i+1, dict);
 			if(this.evaluate(answer, hint)){
 				message.win(answer);
-				return true;
+				//return true;
+				return ;
 			}
 		}
 		message.loss(answer);
-		return false;
+		//return false;
 	}
 
 	private Boolean evaluate(String answer, String hint){
